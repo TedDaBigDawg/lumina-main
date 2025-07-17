@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Parish {
+  id          String   @id @default(uuid())
+  name        String
+  location    String
+  description String?
+  websiteUrl  String?
+  featured    Boolean  @default(false)
+  slug        String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model DemoRequest {
+  id         String   @id @default(uuid())
+  name       String
+  parishName String
+  location   String
+  phone      String?
+  email      String
+  message    String?
+  createdAt  DateTime @default(now())
+}
+
+model Feedback {
+  id        String   @id @default(uuid())
+  name      String?
+  email     String?
+  message   String
+  isPublic  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
