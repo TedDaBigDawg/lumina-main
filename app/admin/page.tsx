@@ -44,7 +44,8 @@ async function getDashboardData() {
 
 export default async function AdminDashboard() {
   // Ensure user is authenticated
-  await requireAuth()
+  const session = await requireAuth()
+
 
   const { parishes, demoRequests, feedback } = await getDashboardData()
 

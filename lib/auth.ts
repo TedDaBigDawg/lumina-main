@@ -1,8 +1,9 @@
 import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
 
 export async function isAuthenticated(): Promise<boolean> {
   try {
-    const cookieStore = await cookies()
+    const cookieStore = cookies() // No need for `await` here
     const adminSession = cookieStore.get("admin-session")
     return adminSession?.value === "authenticated"
   } catch (error) {
@@ -12,7 +13,8 @@ export async function isAuthenticated(): Promise<boolean> {
 
 export async function requireAuth() {
   const authenticated = await isAuthenticated()
+
   if (!authenticated) {
-    throw new Error("Authentication required")
+    redirect("/login") // ✅ Instead of throwing
   }
 }
