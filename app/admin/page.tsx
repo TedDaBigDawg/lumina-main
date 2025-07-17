@@ -18,7 +18,7 @@ async function handleLogout() {
 
   const cookieStore = await cookies()
   cookieStore.delete("admin-session")
-  redirect("/login")
+  redirect("admin/login")
 }
 
 async function getDashboardData() {
